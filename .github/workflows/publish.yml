@@ -20,7 +20,12 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: npm
       - run: npm ci
-      - run: npm run check
+      - name: Check JavaScript syntax
+        run: |
+          for file in src/*.mjs; do
+            node --check "$file"
+          done
+      - run: npm pack --dry-run
       - run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
