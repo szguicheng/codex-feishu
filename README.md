@@ -111,14 +111,14 @@ npm run pack:check
 
 ## 发布到 GitHub 和 npm
 
-仓库地址目前在 `package.json` 中保留了 `REPLACE_WITH_YOUR_ACCOUNT` 占位符。创建 GitHub 仓库后替换 repository/homepage/bugs 三处地址，再执行：
+GitHub 仓库地址为 [szguicheng/codex-feishu](https://github.com/szguicheng/codex-feishu)。如果你是从源码继续开发，可以执行：
 
 ```bash
 git init
 git add .
 git commit -m "feat: publish Codex Feishu hook bridge"
 git branch -M main
-git remote add origin https://github.com/<account>/codex-feishu-hook-bridge.git
+git remote add origin https://github.com/szguicheng/codex-feishu.git
 git push -u origin main
 ```
 

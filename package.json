@@ -6,11 +6,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/REPLACE_WITH_YOUR_ACCOUNT/codex-feishu-hook-bridge.git"
+    "url": "https://github.com/szguicheng/codex-feishu.git"
   },
-  "homepage": "https://github.com/REPLACE_WITH_YOUR_ACCOUNT/codex-feishu-hook-bridge#readme",
+  "homepage": "https://github.com/szguicheng/codex-feishu#readme",
   "bugs": {
-    "url": "https://github.com/REPLACE_WITH_YOUR_ACCOUNT/codex-feishu-hook-bridge/issues"
+    "url": "https://github.com/szguicheng/codex-feishu/issues"
   },
   "engines": {
     "node": ">=20"
