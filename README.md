@@ -128,7 +128,7 @@ npm 发布建议使用版本 tag 触发 GitHub Actions：
 
 当前 `codex-feishu-hook-bridge` 还没有发布到 npm registry，因此暂时不能直接使用 `npm install codex-feishu-hook-bridge`；从 GitHub 安装仍然可用。
 
-首次发布当前的 `0.1.0` 版本，需要先在 GitHub 仓库的 `Settings` → `Secrets and variables` → `Actions` 中添加名为 `NPM_TOKEN` 的 npm 发布 token，然后执行：
+首次发布当前的 `0.1.0` 版本，需要先在 npm 创建一个对该包具有 `read and write` 权限的 granular access token；如果账号或包要求发布时进行 2FA，需要在创建 token 时启用用于自动化发布的 `bypass 2FA` 选项。然后在 GitHub 仓库的 `Settings` → `Secrets and variables` → `Actions` 中添加名为 `NPM_TOKEN` 的 repository secret，再执行：
 
 ```bash
 git tag v0.1.0
@@ -143,6 +143,8 @@ git push --follow-tags
 ```
 
 不要把 npm token 写进仓库文件或提交记录。GitHub Pages workflow 会把 `website/` 发布为一个公开安装说明页；真正的飞书授权链接仍由用户运行 `setup` 时动态生成。
+
+首次发布成功后，也可以把 `publish.yml` 迁移到 npm Trusted Publishing，用 GitHub Actions 的 OIDC 短期凭据替代长期 `NPM_TOKEN`。npm 的 Trusted Publisher 配置需要包已经存在，并且要精确填写 GitHub 用户名、仓库名和 `publish.yml` workflow 文件名。
 
 ## 产品化边界
 
