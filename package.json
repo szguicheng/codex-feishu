@@ -20,8 +20,11 @@
   },
   "files": [
     "README.md",
+    "README.zh-CN.md",
+    "README.zh-TW.md",
     "LICENSE",
     "config.example.env",
+    "assets",
     "src"
   ],
   "scripts": {
