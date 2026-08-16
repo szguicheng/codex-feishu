@@ -100,6 +100,8 @@ npm run check
 npm run pack:check
 ```
 
+`npm run check` 是面向本机安装的诊断命令，会检查飞书目标和 Codex 配置；GitHub Actions 不会运行它。CI 现在只通过 GitHub Actions 页面手动触发：打开 `Actions` → `CI` → `Run workflow`。它不会因为 push 或 Pull Request 自动运行。
+
 核心入口：
 
 - `src/cli.mjs`：npm 命令行入口。
@@ -124,12 +126,23 @@ git push -u origin main
 
 npm 发布建议使用版本 tag 触发 GitHub Actions：
 
+当前 `codex-feishu-hook-bridge` 还没有发布到 npm registry，因此暂时不能直接使用 `npm install codex-feishu-hook-bridge`；从 GitHub 安装仍然可用。
+
+首次发布当前的 `0.1.0` 版本，需要先在 GitHub 仓库的 `Settings` → `Secrets and variables` → `Actions` 中添加名为 `NPM_TOKEN` 的 npm 发布 token，然后执行：
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+`.github/workflows/publish.yml` 会在 `v*` tag 上运行 `npm publish --access public --provenance`。发布成功后，用户即可执行 `npm install codex-feishu-hook-bridge`。后续版本使用：
+
 ```bash
 npm version patch
 git push --follow-tags
 ```
 
-仓库需要配置 `NPM_TOKEN`，`.github/workflows/publish.yml` 会在 `v*` tag 上发布包。GitHub Pages workflow 会把 `website/` 发布为一个公开安装说明页；真正的飞书授权链接仍由用户运行 `setup` 时动态生成。
+不要把 npm token 写进仓库文件或提交记录。GitHub Pages workflow 会把 `website/` 发布为一个公开安装说明页；真正的飞书授权链接仍由用户运行 `setup` 时动态生成。
 
 ## 产品化边界
 

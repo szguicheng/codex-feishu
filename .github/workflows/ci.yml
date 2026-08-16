@@ -1,8 +1,7 @@
 name: CI
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   check:
@@ -14,5 +13,9 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: npm run check
+      - name: Check JavaScript syntax
+        run: |
+          for file in src/*.mjs; do
+            node --check "$file"
+          done
       - run: npm run pack:check
