@@ -1,0 +1,12 @@
+node_modules/
+npm-debug.log*
+.DS_Store
+.env
+.env.*
+config.env
+state.json
+*.tmp-*
+*.codex-feishu-backup-*
+logs/
+outputs/
+coverage/

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Codex Feishu Hook Bridge</title>
+    <style>
+      :root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; background: #10131a; color: #eef2ff; }
+      body { max-width: 860px; margin: 0 auto; padding: 64px 24px; line-height: 1.65; }
+      .eyebrow { color: #8aa4ff; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
+      h1 { font-size: clamp(36px, 8vw, 70px); line-height: 1.05; margin: 12px 0 20px; }
+      h2 { margin-top: 48px; }
+      .lead { color: #b8c1d9; font-size: 20px; max-width: 680px; }
+      code { background: #1c2230; border-radius: 6px; padding: 2px 6px; }
+      pre { background: #171c27; border: 1px solid #2d374c; border-radius: 12px; padding: 18px; overflow: auto; }
+      .card { background: #171c27; border: 1px solid #2d374c; border-radius: 16px; padding: 22px; margin: 18px 0; }
+      a { color: #9fb2ff; }
+      li { margin: 8px 0; }
+      footer { color: #7d879e; margin-top: 56px; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="eyebrow">Codex × Feishu</div>
+    <h1>把 Codex 带到飞书里。</h1>
+    <p class="lead">任务状态卡片、权限阶段、完成提醒，以及从飞书继续向原 Codex session 发送指令。每位用户在自己的飞书租户创建并绑定机器人，凭据保存在本机。</p>
+
+    <div class="card">
+      <h2>三步开始</h2>
+      <pre><code>npx codex-feishu-hook-bridge setup
+npx codex-feishu-hook-bridge install
+npx codex-feishu-hook-bridge doctor</code></pre>
+      <p><code>setup</code> 会打开飞书授权页面。确认后，官方 SDK 会为你的租户创建应用并返回本机所需凭据；不需要把 App Secret 发给项目维护者。</p>
+    </div>
+
+    <h2>你会得到什么</h2>
+    <ul>
+      <li>一轮只保留一张状态卡片：收到指令 → 等待授权 → 本轮完成。</li>
+      <li>完成时通过飞书应用内加急触发提醒。</li>
+      <li>回复自己的 prompt 消息时显示 Get / DONE reaction。</li>
+      <li>追加指令继续进入原来的 Codex session。</li>
+      <li>macOS 登录后自动启动 listener。</li>
+    </ul>
+
+    <h2>安全边界</h2>
+    <p>App Secret 写入 <code>~/.codex/feishu-bridge/config.env</code>，权限为 0600。不要把这个文件提交到 GitHub。这个版本采用本地优先模式；如果未来提供集中式 SaaS，需要另行设计商店应用、租户绑定和云端密钥隔离。</p>
+
+    <footer>Codex Feishu Hook Bridge · MIT License · See the GitHub README for troubleshooting.</footer>
+  </body>
+</html>

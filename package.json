@@ -1,0 +1,42 @@
+{
+  "name": "codex-feishu-hook-bridge",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Feishu cards, lifecycle notifications, and reply-to-session control for Codex hooks.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/REPLACE_WITH_YOUR_ACCOUNT/codex-feishu-hook-bridge.git"
+  },
+  "homepage": "https://github.com/REPLACE_WITH_YOUR_ACCOUNT/codex-feishu-hook-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/REPLACE_WITH_YOUR_ACCOUNT/codex-feishu-hook-bridge/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "codex-feishu-hook-bridge": "src/cli.mjs"
+  },
+  "files": [
+    "README.md",
+    "LICENSE",
+    "config.example.env",
+    "src"
+  ],
+  "scripts": {
+    "hook": "node src/main.mjs hook",
+    "listener": "node src/main.mjs listener",
+    "setup": "node src/cli.mjs setup",
+    "bridge:install": "node src/cli.mjs install",
+    "doctor": "node src/cli.mjs doctor",
+    "check": "node src/cli.mjs check",
+    "pack:check": "npm pack --dry-run"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@larksuiteoapi/node-sdk": "^1.73.0"
+  }
+}
