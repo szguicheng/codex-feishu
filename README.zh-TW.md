@@ -24,6 +24,31 @@
 - 將追加指令映射回原來的 `session_id`，不會因為飛書回覆而建立新的 Codex session。
 - hook 和 listener 共用原子狀態檔案，並對重複的飛書事件進行冪等處理。
 
+### 飛書中的狀態卡片
+
+橋接程式每一輪 Codex 只保留一張卡片。同一張卡片會從藍色的開始狀態原地更新為綠色的完成狀態：
+
+<p align='center'>
+  <img src='assets/readme-card-start.jpg' alt='飛書藍色開始卡片' width='660'>
+</p>
+<p align='center'><em>藍色 — <code>UserPromptSubmit</code>：Codex 已收到新的指令。</em></p>
+
+<p align='center'>
+  <img src='assets/readme-card-complete.jpg' alt='飛書綠色完成卡片' width='660'>
+</p>
+<p align='center'><em>綠色 — <code>Stop</code>：本輪任務結束後，原卡片被更新為完成狀態。</em></p>
+
+### 從飛書回覆 Codex
+
+直接回覆狀態卡片並發送追加指令，例如：<code>請把 README 的安裝步驟再精簡一些。</code> listener 會依序完成：
+
+1. 檢查發送者是否屬於允許回覆的飛書使用者；
+2. 根據被回覆的卡片找到原來的 <code>session_id</code>；
+3. 將追加指令轉發到原來的 Codex session，而不是建立新的 session；
+4. 收到使用者訊息時，在使用者自己發送的訊息上新增 <code>Get</code>；成功送入 Codex 後移除它並新增 <code>DONE</code>。
+
+整個過程不會額外發送「已轉發」等確認訊息。reaction 會新增到使用者發出的訊息上，而不是橋接卡片上。
+
 ## 一次性安裝
 
 要求：macOS、Node.js 20 或更高版本，以及已安裝並能正常執行的 Codex CLI/Desktop。
@@ -125,7 +150,7 @@ npm run pack:check
 
 GitHub 儲存庫：[szguicheng/codex-feishu](https://github.com/szguicheng/codex-feishu)
 
-目前 npm 套件已發佈為 `codex-feishu-hook-bridge@0.1.0`：
+目前 npm 套件已發佈為 `codex-feishu-hook-bridge@0.1.1`：
 
 ```bash
 npm install codex-feishu-hook-bridge

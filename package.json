@@ -1,6 +1,6 @@
 {
   "name": "codex-feishu-hook-bridge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Feishu cards, lifecycle notifications, and reply-to-session control for Codex hooks.",
   "license": "MIT",

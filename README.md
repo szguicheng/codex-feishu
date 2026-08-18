@@ -24,6 +24,31 @@ This project is a publishable npm CLI. After one setup and installation flow, th
 - Routes follow-up instructions to the original `session_id` instead of opening a new Codex session.
 - Shares atomic state between hooks and the listener, with idempotency for duplicate Feishu events.
 
+### Status cards in Feishu
+
+The bridge keeps one card for each Codex turn. The same card changes from the blue start state to the green completion state:
+
+<p align='center'>
+  <img src='assets/readme-card-start.jpg' alt='Blue Feishu start card' width='660'>
+</p>
+<p align='center'><em>Blue — <code>UserPromptSubmit</code>: Codex has received the new instruction.</em></p>
+
+<p align='center'>
+  <img src='assets/readme-card-complete.jpg' alt='Green Feishu completion card' width='660'>
+</p>
+<p align='center'><em>Green — <code>Stop</code>: the same card has been updated when the turn is complete.</em></p>
+
+### Replying from Feishu
+
+Reply directly to the status card and send a follow-up prompt, for example: <code>Please shorten the installation section in the README.</code> The listener then:
+
+1. checks that the sender is an allowed Feishu user;
+2. resolves the replied card to its original <code>session_id</code>;
+3. forwards the new prompt to that existing Codex session;
+4. adds the <code>Get</code> reaction to the user message when it is received, then replaces it with <code>DONE</code> after the prompt is delivered.
+
+No forwarding confirmation message is created. The reactions are placed on the user's sent message, not on the bridge card.
+
 ## One-time installation
 
 Requirements: macOS, Node.js 20 or later, and a working Codex CLI/Desktop installation.
@@ -125,7 +150,7 @@ Key entry points:
 
 Repository: [szguicheng/codex-feishu](https://github.com/szguicheng/codex-feishu)
 
-The package is currently published as `codex-feishu-hook-bridge@0.1.0`:
+The package is currently published as `codex-feishu-hook-bridge@0.1.1`:
 
 ```bash
 npm install codex-feishu-hook-bridge
